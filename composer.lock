@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a8c9bc04a5706bf54f2a6d2e62168e90",
-    "content-hash": "ed50304d3da28369b7a64da5c63c12ae",
+    "hash": "ca8801eee07f254287c569024af2d8bb",
+    "content-hash": "3d496a1625516b0074f1544c7d191b86",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -53,6 +53,51 @@
                 "preload"
             ],
             "time": "2014-03-12 00:05:31"
+        },
+        {
+            "name": "creolab/laravel-modules",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creolab/laravel-modules.git",
+                "reference": "6a14567c1b1169951efabe00cdb12673746c79d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creolab/laravel-modules/zipball/6a14567c1b1169951efabe00cdb12673746c79d4",
+                "reference": "6a14567c1b1169951efabe00cdb12673746c79d4",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~4",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "way/generators": "~2"
+            },
+            "suggest": {
+                "way/generators": "Required for modules:generate functionality."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Creolab\\LaravelModules\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Boris Strahija",
+                    "email": "bstrahija@gmail.com"
+                }
+            ],
+            "description": "Application specific modules in Laravel 4",
+            "homepage": "http://creolab.hr",
+            "keywords": [
+                "laravel",
+                "modules"
+            ],
+            "time": "2015-07-21 07:55:48"
         },
         {
             "name": "d11wtq/boris",
@@ -147,6 +192,58 @@
                 "zf2"
             ],
             "time": "2015-06-29 05:42:04"
+        },
+        {
+            "name": "fzaninotto/faker",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d0190b156bcca848d401fb80f31f504f37141c8d",
+                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "suggest": {
+                "ext-intl": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2015-05-29 06:29:14"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -765,6 +862,57 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "raveren/kint",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raveren/kint.git",
+                "reference": "9a072e1bda25cf62b809db46b505fb8d4a9dfe6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/9a072e1bda25cf62b809db46b505fb8d4a9dfe6c",
+                "reference": "9a072e1bda25cf62b809db46b505fb8d4a9dfe6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Kint.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rokas Šleinius",
+                    "homepage": "https://github.com/raveren"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/raveren/kint/contributors"
+                }
+            ],
+            "description": "Kint - debugging helper for PHP developers",
+            "homepage": "https://github.com/raveren/kint",
+            "keywords": [
+                "debug",
+                "kint",
+                "php"
+            ],
+            "time": "2015-09-22 16:42:17"
         },
         {
             "name": "stack/builder",
@@ -1662,7 +1810,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "creolab/laravel-modules": 20,
+        "raveren/kint": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
