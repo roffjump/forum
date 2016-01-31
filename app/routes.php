@@ -13,5 +13,5 @@
 
 Route::get('/', function()
 {
-	return Redirect::to('/dashboard');
+	return Redirect::to('/forum');
 });

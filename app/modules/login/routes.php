@@ -1,9 +1,4 @@
 <?php
 
-Route::get('/login',function(){
-
-});
-
-Route::post('/login',function(){
-	
-});
+Route::resource('/login', 'LoginController',
+                array('only' => array('index', 'show')));
