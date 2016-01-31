@@ -70,15 +70,8 @@ Forum
                     <span class="caption-subject font-green bold uppercase">Topics</span>
                 </div>
                 <div class="actions">
-                    <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                        <i class="icon-cloud-upload"></i>
-                    </a>
-                    <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                        <i class="icon-wrench"></i>
-                    </a>
-                    <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                        <i class="icon-trash"></i>
-                    </a>
+                    <a href="javascript:;" class="btn btn-circle btn-default"><i class="fa fa-plus"></i> Add </a>
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" onclick="adapt(this)" href="javascript:;" data-original-title="" title=""> </a>
                 </div>
             </div>
             <div class="portlet-body">
@@ -95,7 +88,7 @@ Forum
 
 
 var window_height = $(window).height();
-var DEFAULT_HEIGHT = window_height - 150;
+var DEFAULT_HEIGHT = window_height - 350;
 
 var jqx_grid_init = function(elem) {
 
@@ -104,10 +97,15 @@ var jqx_grid_init = function(elem) {
     // IE mode
     var elem=elem;
     var form_data = {}, expand = {};
-    var url = '/forum/rest/api/topic/all';
+    var url = '/forum/topic/all';
 
     var datafields = [
-
+        { name:'title', type:'string' },
+        { name:'created_at', type:'date' },
+        { name:'last_answer', type:'date' },
+        { name:'author', type:'string' },
+        { name:'count_answers', type:'number' },
+        { name:'place', type:'string' },
     ];
 
     var renderer = function (row, columnfield, value, defaulthtml, columnproperties, data) {
@@ -115,6 +113,12 @@ var jqx_grid_init = function(elem) {
     }
 
     var columns = [
+        { text:'Title',datafield:'title', width: '60%' },
+        { text:'Created at',datafield:'created_at', width: col_md_2, cellsalign:'center', filtertype: 'range', cellsformat: 'dd-MM-yyyy',filterable:false, },
+        { text:'Last answer',datafield:'last_answer', width: col_md_2, cellsalign:'center', filtertype: 'range', cellsformat: 'dd-MM-yyyy',filterable:false, },
+        { text:'Author',datafield:'author', width: '20%',filterable:false },
+        { text:'Answers',datafield:'count_answers', cellsalign:'center',filterable:false },
+        { text:'Place',datafield:'place', cellsalign:'center',filterable:false },
     ];
 
     var columngroups = [
@@ -135,12 +139,7 @@ var jqx_grid_init = function(elem) {
             width: '100%',
             height: DEFAULT_HEIGHT,
             selectionmode:'multiplecellsadvanced',
-            // showeverpresentrow: true,
-            // everpresentrowposition: "top",
-            // everpresentrowactionsmode: "columns",
-            // everpresentrowactions: "add reset",
-            // editable: true,
-            // selectionmode: 'singlecell',
+
             showfilterrow: true,
             groupable: true,
             sortable: true,

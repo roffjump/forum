@@ -19,6 +19,7 @@ class CreateTopicsAnswersTable extends Migration {
 	        $table->string('author');
 	        $table->string('title');
 	        $table->text('message');
+	        $table->enum('place', array('web', 'api'));
 			$table->softDeletes();
 	        $table->timestamps();
 	    });

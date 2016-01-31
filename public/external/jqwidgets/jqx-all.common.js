@@ -70,3 +70,17 @@ var open_menu = $.debounce( 100, function( menu, clientX, clientY  ){
     menu.jqxMenu('open', left, top);
 
 });
+
+var h;
+var adapt_aux = $.debounce( 100, function( elem  ){
+    if( $(elem).hasClass('on') ){
+        h = $( jqx_grid_focus ).jqxGrid('height');
+        $( jqx_grid_focus ).jqxGrid({ height: $(window).height()*.9 });
+    }else{
+        $( jqx_grid_focus ).jqxGrid({ height: h });
+    }
+});
+var adapt = function(elem){
+    console.warn('adapt');
+    adapt_aux(elem);
+}
