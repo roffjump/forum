@@ -3,7 +3,17 @@ var col_md_1=80,col_md_2=100,col_md_3=150,col_md_4=230,col_md_5=350,col_md_6=390
 var theme = 'bootstrap';
 
 
+
 var jqx_grid_focus, selected_cell;
+
+function isRightClick(event) {
+    var rightclick;
+    if (!event) var event = window.event;
+    if (event.which) rightclick = (event.which == 3);
+    else if (event.button) rightclick = (event.button == 2);
+    return rightclick;
+}
+
 var group_toggle = $.debounce( 200, function( elem  ){
     console.log( "group_toggle: " +  jqx_grid_focus);
     var datafield = $(elem).attr('data-datafield');

@@ -10,7 +10,13 @@ class Topic extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'topics';
+	protected $primaryKey = "tid";
 
+    protected $fillable = [
+    	"title",
+    	"author",
+    	"message",
+    ];
 
 	public function answers(){
 		return $this->hasMany('TopicAnswer', 'tid', 'tid');

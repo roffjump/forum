@@ -17,7 +17,7 @@ class CreateTopicsAnswersTable extends Migration {
 	        $table->increments('taid');
 	        $table->integer('tid');
 	        $table->string('author');
-	        $table->string('title');
+	        // $table->string('title');
 	        $table->text('message');
 	        $table->enum('place', array('web', 'api'));
 			$table->softDeletes();

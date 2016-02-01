@@ -3,7 +3,7 @@
 @section('page-level-assets')
 <link rel="stylesheet" type="text/css" href="/external/jqwidgets/styles/jqx.base.css">
 <link rel="stylesheet" type="text/css" href="/external/jqwidgets/styles/jqx.bootstrap.css">
-
+<link href="/assets/apps/css/todo.min.css" rel="stylesheet" type="text/css" />
 @stop
 
 @section('page-level-plugins')
@@ -70,7 +70,7 @@ Forum
                     <span class="caption-subject font-green bold uppercase">Topics</span>
                 </div>
                 <div class="actions">
-                    <a href="javascript:;" class="btn btn-circle btn-default"><i class="fa fa-plus"></i> Add </a>
+                    <a href="javascript:add_topic();" class="btn btn-circle btn-default" ><i class="fa fa-plus"></i> Add </a>
                     <a class="btn btn-circle btn-icon-only btn-default fullscreen" onclick="adapt(this)" href="javascript:;" data-original-title="" title=""> </a>
                 </div>
             </div>
@@ -79,6 +79,80 @@ Forum
             </div>
         </div>
         <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<div id="jqx-menu-main" class="jqx-menu-standart" style="display: none;">
+    <ul>
+        <li>
+            <i class="fa fa-reorder"></i> Menu
+        </li>
+        <li onclick="refresh()">
+            <i class="fa fa-refresh"></i> Refresh
+        </li>
+        <li><i class="fa fa-bolt"></i> Features
+            <ul >
+                <li>
+                    Show / Hide
+                    <ul>
+                        <li onclick="column_toggle(this)" data-action='hidecolumn' data-datafield="title">Title</li>
+                        <li onclick="column_toggle(this)" data-action='hidecolumn' data-datafield="created_at">Created at</li>
+                        <li onclick="column_toggle(this)" data-action='hidecolumn' data-datafield="last_answer">Last answer</li>
+                        <li onclick="column_toggle(this)" data-action='hidecolumn' data-datafield="author">Author</li>
+                        <li onclick="column_toggle(this)" data-action='hidecolumn' data-datafield="count_answers">Answers</li>
+                        <li onclick="column_toggle(this)" data-action='hidecolumn' data-datafield="place">Place</li>
+                    </ul>
+                </li>
+                <li>
+                    Collapse / Expand
+                    <ul>
+                        <li onclick="group_toggle(this)" data-status="" data-action="expandallgroups" > Expand</li>
+                        <li onclick="group_toggle(this)" data-status="" data-action="collapseallgroups" > Collapse</li>
+                    </ul>
+                </li>
+                <li>
+                    Filter
+                    <ul>
+                        <li onclick="filter_toggle(this)" data-showfilterrow="false" data-filtermode="default" > Default</li>
+                        <li onclick="filter_toggle(this)" data-showfilterrow="true" data-filtermode="default" > Filter row</li>
+                        <li onclick="filter_toggle(this)" data-showfilterrow="false" data-filtermode="excel" > Excel</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="modal fade bs-modal-lg" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal Title</h4>
+            </div>
+            <div class="modal-body"> Modal body goes here </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button type="button" class="btn green">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="todo-task-modal" class="modal fade" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content scroller" style="height: 100%;" data-always-visible="1" data-rail-visible="0">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body todo-task-modal-body">
+                
+            </div>
+            
+            <div class="modal-footer">
+
+            </div>
+        </div>
     </div>
 </div>
 @stop
@@ -100,7 +174,9 @@ var jqx_grid_init = function(elem) {
     var url = '/forum/topic/all';
 
     var datafields = [
+        { name:'tid', type:'string' },
         { name:'title', type:'string' },
+        { name:'message', type:'string' },
         { name:'created_at', type:'date' },
         { name:'last_answer', type:'date' },
         { name:'author', type:'string' },
@@ -119,6 +195,12 @@ var jqx_grid_init = function(elem) {
         { text:'Author',datafield:'author', width: '20%',filterable:false },
         { text:'Answers',datafield:'count_answers', cellsalign:'center',filterable:false },
         { text:'Place',datafield:'place', cellsalign:'center',filterable:false },
+        { text: '', datafield: 'detail', columntype: 'button',filterable:false, width: col_md_1, cellsrenderer: function () {
+                 return "Details";
+             }, buttonclick: function (topic) {
+                show_topic(topic);
+             }
+         },
     ];
 
     var columngroups = [
@@ -132,6 +214,7 @@ var jqx_grid_init = function(elem) {
         datafields: datafields,
     };
 
+
     var jqxGridInit = function() {
         console.log(elem);
         $( elem ).jqxGrid({
@@ -139,7 +222,6 @@ var jqx_grid_init = function(elem) {
             width: '100%',
             height: DEFAULT_HEIGHT,
             selectionmode:'multiplecellsadvanced',
-
             showfilterrow: true,
             groupable: true,
             sortable: true,
@@ -164,7 +246,12 @@ var jqx_grid_init = function(elem) {
             menu_main.jqxMenu('close');
         }
     });
-
+ 
+    $( elem ).on("bindingcomplete", function (event) {
+        console.info('jqx_grid_init: bindingcomplete');
+        $( elem ).jqxGrid('sortby', 'created_at', 'desc');
+    });    
+ 
     $( elem ).bind('contextmenu', function (event) {
         jqx_grid_focus = elem;
         var rightClick = isRightClick(event) || $.jqx.mobile.isTouchDevice();
@@ -175,6 +262,7 @@ var jqx_grid_init = function(elem) {
             menu_main.jqxMenu('close');
         }
     });
+
     var ready = function() {
         console.info('jqx_grid_init: ready');
     };
@@ -196,9 +284,30 @@ var jqx_grid_init = function(elem) {
     }
 };
 
+var refresh = $.debounce(1, function( sort ){
+    $( jqx_grid_focus ).jqxGrid('updatebounddata');
+});
+
+var add_topic = $.debounce( 100, function( data ){
+    console.info('add_topic');
+    $('#modal > .modal-dialog > .modal-content').load('/forum/topic/create', data, function(){
+        $('#modal').modal("show");
+    });
+});
+
+var show_topic = $.debounce( 100, function( id ){
+    console.info('show_topic');
+    $('#todo-task-modal .modal-content').load('/forum/topic/show/'+id, function(){
+        $('#todo-task-modal').modal("show");
+    });
+});
+$('#todo-task-modal').on('hidden.bs.modal', function () {
+    refresh();
+});
 $(document).ready(function() {
 
     jqx_grid_init('#jqx-grid-standart').init();
+    menu_main = $("#jqx-menu-main").jqxMenu({ theme:theme, width: '170px', autoOpenPopup: false, mode: 'popup'});
 });
 
 </script>

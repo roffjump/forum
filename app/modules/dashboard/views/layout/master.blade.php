@@ -163,6 +163,15 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
                 <!-- END PAGE CONTENT BODY -->
                 <!-- END CONTENT BODY -->
+                <div class="page-head">
+                    <div class="container-fluid">
+                        <!-- BEGIN PAGE TITLE -->
+                        <div class="page-title">
+                            @yield('page-footer-buttons')
+                        </div>
+                        <!-- END PAGE TOOLBAR -->
+                    </div>
+                </div>
             </div>
             <!-- END CONTENT -->
             <!-- BEGIN QUICK SIDEBAR -->
