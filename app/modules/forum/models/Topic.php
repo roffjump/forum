@@ -11,6 +11,7 @@ class Topic extends Eloquent {
 	 */
 	protected $table = 'topics';
 	protected $primaryKey = "tid";
+	protected $dates = ['created_at','updated_at','deleted_at'];
 
     protected $fillable = [
     	"title",
@@ -29,6 +30,7 @@ class Topic extends Eloquent {
 	}
 
 	public function count_answers(){
-		return $this->answers->count();
+		// sd($this->answers);
+		return $this->answers()->count();
 	}
 }

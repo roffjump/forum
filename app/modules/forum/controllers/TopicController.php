@@ -3,6 +3,11 @@
 class TopicController extends BaseController {
 
 	protected $layout = 'dashboard::layout.master';
+	private $required=[
+		'title'=>5,
+		'author'=>3,
+		'message'=>5
+	];
 
 	public function all(){
 		$topics = Topic::all();
@@ -19,7 +24,7 @@ class TopicController extends BaseController {
 	}
 
 	public function create(){
-		if (Request::isMethod('get')){
+		if (Request::isMethod('get') ){
 			return View::make('forum::topic_create');
 		}
 		
@@ -56,6 +61,7 @@ class TopicController extends BaseController {
 		$new->fill($data);
 	    $new->place = Input::has('api')?'api':'web';
 	    $new->save();
+	    $new->created_at->format('d-m-Y');
 
 	    return Response::json($new->toArray());
 	}

@@ -197,8 +197,8 @@ var jqx_grid_init = function(elem) {
         { text:'Place',datafield:'place', cellsalign:'center',filterable:false },
         { text: '', datafield: 'detail', columntype: 'button',filterable:false, width: col_md_1, cellsrenderer: function () {
                  return "Details";
-             }, buttonclick: function (topic) {
-                show_topic(topic);
+             }, buttonclick: function (rowid) {
+                show_topic($(elem).jqxGrid('getrowdata', rowid).tid);
              }
          },
     ];
@@ -285,7 +285,7 @@ var jqx_grid_init = function(elem) {
 };
 
 var refresh = $.debounce(1, function( sort ){
-    $( jqx_grid_focus ).jqxGrid('updatebounddata');
+    $( jqx_grid_focus ).jqxGrid('updatebounddata', 'cells');
 });
 
 var add_topic = $.debounce( 100, function( data ){

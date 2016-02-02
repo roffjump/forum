@@ -130,8 +130,10 @@ var handleValidation = function() {
 	            success1.show();
 	            error1.hide();
 	            @if (Request::ajax())
-	            	$("#modal").modal('hide');
-	            	refresh();
+                    $.post('/forum/topic/create', $("#form_create").serialize(), function(data, textStatus, xhr) {
+    	            	$("#modal").modal('hide');
+    	            	refresh();
+                    });
 	            @else
 		            return true;
 	            @endif

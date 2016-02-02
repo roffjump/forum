@@ -11,6 +11,7 @@ class TopicAnswer extends Eloquent {
 	 */
 	protected $table = 'topics_answers';
 	protected $primaryKey = "taid";
+	protected $dates = ['created_at','updated_at','deleted_at'];
 
     protected $fillable = [
     	"author",

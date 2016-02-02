@@ -8,7 +8,8 @@
 
 		"creolab/laravel-modules": "dev-master",
 		"raveren/kint": "1.0.x-dev",
-		"fzaninotto/faker": "^1.5"
+		"fzaninotto/faker": "^1.5",
+		"vtalbot/markdown": "1.5"
 	},
 	"autoload": {
 		"classmap": [
